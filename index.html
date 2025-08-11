@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportMatch - Connecter les talents aux clubs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #4285f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #4285f4;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .problem-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .problem-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .problem-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .problem-list li {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .problem-list li::before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+        }
+
+        .stats {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4285f4;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            background: #333;
+            border-radius: 30px;
+            padding: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .phone-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .app-logo {
+            width: 60px;
+            height: 60px;
+            background: #4285f4;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .solution-features {
+            list-style: none;
+        }
+
+        .solution-features li {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .solution-features li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        /* Target Section */
+        .target {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .target-card {
+            padding: 2rem;
+            border-left: 4px solid #4285f4;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .target-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #4285f4 0%, #667eea 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #4285f4;
+        }
+
+        .footer-section a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .footer-section a:hover {
+            color: #4285f4;
+        }
+
+        .faq-item {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .problem-content,
+            .solution-content,
+            .target-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">S</div>
+                    <span>SPORTMATCH</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Recruter ou se faire recruter ? On t'a construit le raccourci.</h1>
+            <p>Pensé par des sportifs et des entraîneurs pour le sport amateur.</p>
+            <p><strong>Crée ton profil. Montre ton talent. Trouve ta place.</strong></p>
+            <div class="cta-buttons">
+                <a href="https://form.typeform.com/to/BAydt8XV" class="btn btn-primary" target="_blank">JE CHERCHE UN CLUB</a>
+                <a href="https://form.typeform.com/to/XlBWkjIO" class="btn btn-secondary" target="_blank">JE CHERCHE DES JOUEURS</a>
+            </div>
+            <p style="margin-top: 1rem; opacity: 0.8;">100% gratuit et sans engagement ! Tu peux supprimer ton profil à tout moment.</p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title">Le sport amateur est encore à l'âge de pierre du recrutement.</h2>
+            
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>🏃 T'es un joueur et :</h3>
+                    <ul class="problem-list">
+                        <li>Tu joues chaque semaine... mais personne ne te voit.</li>
+                        <li>Tu donnes tout sur le terrain, mais sans réseau, tu restes invisible.</li>
+                        <li>Personne ne t'appelle, sauf si t'as "le bon contact".</li>
+                        <li>Ton talent ne suffit pas. Aujourd'hui, on recrute par piston, pas par mérite.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem;">🏈 Tu travailles pour un club et :</h3>
+                    <ul class="problem-list">
+                        <li>Tu veux recruter, mais tu passes ta vie à chercher.</li>
+                        <li>Ton recrutement se traduit par des DM Instagram, messages flous et des essais improvisés.</li>
+                        <li>Tu n'as pas de filtre, pas de temps, pas de certitude.</li>
+                        <li>Le recrutement amateur ? C'est encore du bouche-à-oreille bricolé.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="stats">
+                        <div class="stat-number">2,1M</div>
+                        <p>de licenciés en football</p>
+                    </div>
+                    <div class="stats" style="margin-top: 2rem;">
+                        <div class="stat-number">678K</div>
+                        <p>en basketball</p>
+                    </div>
+                    <p style="text-align: center; margin-top: 2rem; font-weight: 600;">
+                        Toujours aucun outil pour connecter les bons talents aux bons clubs.
+                    </p>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        C'est ça, le sport amateur aujourd'hui.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <div class="solution-content">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-logo">S</div>
+                        <h3>SPORTMATCH</h3>
+                        <p style="font-size: 0.9rem; margin: 1rem 0;">🔍 Football</p>
+                        <div style="text-align: left; font-size: 0.8rem;">
+                            <p><strong>Clubs qui pourraient vous correspondre</strong></p>
+                            <div style="margin: 1rem 0; padding: 0.5rem; background: #f0f0f0; border-radius: 8px;">
+                                <p><strong>Racing Club de France</strong></p>
+                                <p>Levallois-Perret • Régionale 1</p>
+                            </div>
+                            <div style="margin: 1rem 0; padding: 0.5rem; background: #f0f0f0; border-radius: 8px;">
+                                <p><strong>US Ivry</strong></p>
+                                <p>Ivry-sur-Seine • Régionale 1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Gagne en visibilité, trouve un club qui te correspond.</h2>
+                    <p style="margin-bottom: 2rem;">Plus besoin d'attendre qu'on te repère "par hasard". SportMatch te permet de :</p>
+                    
+                    <ul class="solution-features">
+                        <li>Créer un profil sportif complet (vidéo, posts, niveau, stats)</li>
+                        <li>Être visible auprès de clubs filtrés par ton niveau et ton poste</li>
+                        <li>Recevoir des suggestions de clubs pertinentes (IA)</li>
+                        <li>Activer le statut #OpenToPlay pour montrer ta disponibilité</li>
+                        <li>Tu cherches un club ? SportMatch vient à toi.</li>
+                    </ul>
+
+                    <a href="https://form.typeform.com/to/BAydt8XV" class="btn btn-primary" style="margin-top: 2rem;" target="_blank">JE CRÉE MON PROFIL GRATUITEMENT</a>
+                </div>
+            </div>
+
+            <!-- Second Solution Section for Clubs -->
+            <div class="solution-content" style="margin-top: 6rem;">
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Trouvez le bon joueur, sans casting raté ni perte de temps.</h2>
+                    <p style="margin-bottom: 2rem;">Tu veux un joueur dispo maintenant ? Tu le trouves en 2 clics, pas en 3 semaines de messages flous ?</p>
+                    <p style="margin-bottom: 2rem;">SportMatch vous permet de :</p>
+                    
+                    <ul class="solution-features">
+                        <li>Filtres précis : poste, niveau, sport, région, âge</li>
+                        <li>Profils détaillés avec vidéos et infos-clés</li>
+                        <li>Shortlist privée : suivez les talents prometteurs</li>
+                        <li>Contact simplifié avec les joueurs ouverts au recrutement</li>
+                        <li>Vous avez besoin d'un profil ? SportMatch l'a déjà trouvé.</li>
+                    </ul>
+
+                    <a href="https://form.typeform.com/to/XlBWkjIO" class="btn btn-primary" style="margin-top: 2rem;" target="_blank">JE DÉCOUVRE LES PROFILS</a>
+                </div>
+
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-logo">S</div>
+                        <h3>SPORTMATCH</h3>
+                        <p style="font-size: 0.9rem; margin: 1rem 0;">🔍 Football ▼</p>
+                        <p style="font-size: 0.8rem;">⚙️ Provence-Alpes-Côte d'Azur ▼</p>
+                        <div style="text-align: left; font-size: 0.8rem; margin-top: 1rem;">
+                            <p><strong>Recherche enregistrée</strong></p>
+                            <p>Milieu de terrain, Régionale 1</p>
+                            <div style="margin: 0.5rem 0; padding: 0.5rem; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 30px; height: 30px; background: #ddd; border-radius: 50%;"></div>
+                                <div>
+                                    <p style="margin: 0;"><strong>Adam Dufour</strong></p>
+                                    <p style="margin: 0; font-size: 0.7rem;">2001 • Milieu • Régionale 1</p>
+                                </div>
+                            </div>
+                            <div style="margin: 0.5rem 0; padding: 0.5rem; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 30px; height: 30px; background: #ddd; border-radius: 50%;"></div>
+                                <div>
+                                    <p style="margin: 0;"><strong>Antoine Petit</strong></p>
+                                    <p style="margin: 0; font-size: 0.7rem;">2003 • Milieu • District</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Des outils concrets. Pour ceux qui recrutent avec les yeux.</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Matching intelligent</h3>
+                    <p>Plus besoin de scroller. On t'envoie ce qui te correspond, directement.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Filtres précis</h3>
+                    <p>Tu veux un 6 gaucher, né en 2004 ? Trouvé en 10 sec</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔼</div>
+                    <h3>Profil média</h3>
+                    <p>Tu montres des vidéos de ton vrai niveau. Pas juste une ligne dans un mail.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Shortlist & favoris</h3>
+                    <p>T'as repéré un bon troisième ligne ? Garde-le. Suis son statut en temps réel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Section -->
+    <section class="target">
+        <div class="container">
+            <h2 class="section-title">SportMatch, c'est pas pour tout le monde.</h2>
+            
+            <div class="target-grid">
+                <div class="target-card">
+                    <h3>🏃 C'est pour toi si tu es joueur et :</h3>
+                    <ul style="list-style: none; margin-top: 1rem;">
+                        <li>• Tu joues chaque semaine mais personne ne t'appelle ?</li>
+                        <li>• Tu donnes tout sur le terrain, mais sans réseau t'es invisible.</li>
+                        <li>• Tu veux pas supplier, tu veux juste jouer à ton vrai niveau.</li>
+                    </ul>
+                </div>
+
+                <div class="target-card">
+                    <h3>🏈 C'est également pour toi si tu es coach ou dirigeant de club et :</h3>
+                    <ul style="list-style: none; margin-top: 1rem;">
+                        <li>• Tu veux recruter, pas scroller sur Insta pendant 10h ?</li>
+                        <li>• T'es fatigué des essais à l'aveugle et des messages flous.</li>
+                        <li>• Tu veux des profils sérieux, clairs, et dispo maintenant.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 12px;">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Alors ouais, SportMatch est fait pour toi.</p>
+                <p>Sinon ? Ce sera encore une saison à galérer pour rien.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Rejoignez SportMatch dès maintenant.</h2>
+            <p>Que vous soyez joueur en recherche d'un club, ou club en quête de profils, vous êtes au bon endroit.</p>
+            <p>Inscription gratuite et sans engagement.</p>
+            
+            <div class="cta-buttons">
+                <a href="https://form.typeform.com/to/BAydt8XV" class="btn" style="background: white; color: #4285f4; margin: 10px;" target="_blank">JE SUIS UN JOUEUR</a>
+                <a href="https://form.typeform.com/to/XlBWkjIO" class="btn" style="background: rgba(255,255,255,0.2); color: white; margin: 10px;" target="_blank">JE SUIS UN CLUB</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                    Pensé par des coachs de terrain. Utilisé par les clubs de Régionale. 
+                    Rejoignez la première plateforme de recrutement sportif méritocratique.
+                </p>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Informations légales</h3>
+                    <a href="https://www.notion.so/Mentions-l-gales-2417f2e7181a80c5b62dfb7fd5ba4b77" target="_blank">Mentions légales</a>
+                    <a href="https://www.notion.so/Politique-de-confidentialit-23e7f2e7181a806c8196c41acee3fcd0" target="_blank">Politique de confidentialité</a>
+                    <a href="https://www.notion.so/Conditions-g-n-rales-d-utilisation-CGU-2417f2e7181a80c6a967c4d90165185b" target="_blank">Conditions générales d'utilisation</a>
+                    <a href="mailto:contact@sportmatch.fr">Notre adresse mail</a>
+                    <a href="https://instagram.com/sportmatch.fr" target="_blank">Notre Instagram</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>FAQ</h3>
+                    <div class="faq-item">
+                        <div class="faq-question">🌸 Est-ce que SportMatch est déjà disponible ?</div>
+                        <div>Pas encore. Mais tu peux t'inscrire maintenant pour faire partie des premiers testeurs de la version bêta.</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">⚽ Qui peut s'inscrire ?</div>
+                        <div>👆 Tous les joueurs en recherche de club, et les clubs en quête de profils sérieux.</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">💚 C'est 100 % gratuit ?</div>
+                        <div>Oui. Gratuit pendant toute la phase de lancement. Zéro carte bleue. Zéro engagement.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">🔒 Mes données sont-elles protégées ?</div>
+                        <div>Évidemment. On ne vend rien. On utilise juste ton profil pour faire matcher les bons joueurs avec les bons clubs.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="https://form.typeform.com/to/BAydt8XV" class="btn btn-primary" target="_blank">ACCÉDER À LA VERSION BÊTA</a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                    <div class="logo-icon">S</div>
+                    <span>SPORTMATCH</span>
+                </div>
+                <p>&copy; 2025 SportMatch. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'white';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('section, .feature-card, .target-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+Initial launch - Sportmatch landing page
